@@ -1,0 +1,66 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java.util.Scanner; 
+
+class Money
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    Scanner user_input = new Scanner( System.in );
+	    //the lines of code below are the variables my code will use
+		double currentStockPrice;
+		double week1;
+		double week2;
+		double week3;
+		double week4;
+		double peRatio;
+		double calculatedStockPrice = 0;
+		
+		//the lines of code below ask for user input for the stock prices of a stock over time
+		System.out.print("Enter the amount you bought the stock for: ");
+		double invest;
+        invest= Double.parseDouble(user_input.next( ));
+        
+        System.out.print("Enter the current P/E Ratio: ");
+        peRatio= Double.parseDouble(user_input.next( ));
+        
+		System.out.print("Enter the current stock price: ");
+        currentStockPrice= Double.parseDouble(user_input.next( ));
+        
+        System.out.print("Enter the current stock price as of one week from the current date: ");
+        week1= Double.parseDouble(user_input.next( ));
+        
+        System.out.print("Enter the current stock price as of two weeks from the current date: ");
+        week2= Double.parseDouble(user_input.next( ));
+        
+        System.out.print("Enter the current stock price as of three weeks from the current date: ");
+        week3= Double.parseDouble(user_input.next( ));
+        
+        System.out.print("Enter the current stock price as of four weeks from the current date: ");
+        week4= Double.parseDouble(user_input.next( ));
+        
+        //the if statement below calculates the expected stock price based on the trend of the stock price over the previous four weeks
+        if (week1-week2 == week2-week3){
+        calculatedStockPrice= currentStockPrice+(week1-week2);
+        }
+        else if (week1-week2 < week2-week3){
+        calculatedStockPrice= currentStockPrice+ ((week1+week2+week3+week4)/peRatio)-5;
+        }
+        else{
+        calculatedStockPrice= currentStockPrice+ ((week1-week2+week3-week4)/peRatio);
+        }
+        
+        double stockReturn= calculatedStockPrice-invest;
+        //the if statements below return a given response based on the current stock price in relation to the calculated stock price in the future
+        if (currentStockPrice < calculatedStockPrice) {
+        System.out.println("The stock price for your stock is expected to increase and value around $"+calculatedStockPrice+"0. You should sell your stock in the near future. If you sold it a month from today, your return is expected to be $"+stockReturn+"0.");
+        }
+        else if (currentStockPrice > calculatedStockPrice) {
+        System.out.println("The stock price for your stock is expected to decrease and value around $"+calculatedStockPrice+"0. You should buy more stock in the near future. If you sold it a month from today, your return is expected to be $"+stockReturn+"0.");
+        }
+        else{
+        System.out.println("The stock price for your stock is expected to remain unchanged. You should hold your stock, and wait to see what happens. If you sold it a month from today, your return is expected to be $"+stockReturn+"0.");
+    }
+	}
+}
